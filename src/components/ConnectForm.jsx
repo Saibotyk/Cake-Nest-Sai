@@ -1,17 +1,19 @@
 import React from 'react'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 export default function ConnectForm() {
     const [name, setName] = useState("")
-
+    const navigate = useNavigate();
     
     const handleSubmit = (event) => {
         if (name === "") {
             alert("Ce champ ne peut être vide")
+            navigate("/")
         } else {
             event.preventDefault()
-            alert("Bonjour " + name)
             setName("")
+            navigate(`/order/${name}`)
         }
     }
 

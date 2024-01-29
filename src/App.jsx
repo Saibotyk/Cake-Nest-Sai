@@ -1,13 +1,19 @@
 import React from 'react'
-import Title from './components/Title'
-import ConnectForm from './components/ConnectForm'
+import { Route, Routes } from 'react-router-dom'
+import ConnectPage from './pages/ConnectPage'
+import OrderPage from './pages/OrderPage'
+import ErrorPage from './pages/ErrorPage'
+
 
 export default function App() {
+
+
   return (
-    <div>
-      <Title/>
-      <ConnectForm/>
-    </div>
+    <Routes>
+      <Route path="/" element={<ConnectPage />} />
+      <Route path="/order/:username" element={<OrderPage />} />
+      <Route path="/*" element={<ErrorPage />} />
+    </Routes>
   )
 }
 
