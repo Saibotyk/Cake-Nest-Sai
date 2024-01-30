@@ -19,9 +19,7 @@ const StyledDiv = styled.div`
 
     display: flex;
     flex-direction: column;
-    margin: auto;
-    padding: 5rem 0;
-    height: 100vh;
+    margin: 10rem auto;
     width: 50vw;
     
     ::before{
