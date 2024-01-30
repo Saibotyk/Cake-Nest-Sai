@@ -3,6 +3,8 @@ import { Route, Routes } from 'react-router-dom'
 import ConnectPage from './pages/ConnectPage'
 import OrderPage from './pages/OrderPage'
 import ErrorPage from './pages/ErrorPage'
+import styled from 'styled-components'
+
 
 
 export default function App() {
@@ -16,4 +18,6 @@ export default function App() {
     </Routes>
   )
 }
+
+
 
