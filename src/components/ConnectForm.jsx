@@ -4,6 +4,8 @@ import { useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { theme } from './Theme/index'
 import { BsChevronRight } from "react-icons/bs";
+import { IoPersonCircleOutline } from "react-icons/io5";
+
 
 
 export default function ConnectForm() {
@@ -33,9 +35,9 @@ export default function ConnectForm() {
             <StyledHr />
             <StyledH3>Connectez-vous</StyledH3>
             <StyledForm action="submit" onSubmit={handleSubmit}>
-                <StyledInput type="text" placeholder='Entrez votre prénom...' onChange={handleChangeName} value={name} />
+                <StyledInput> <IoPersonCircleOutline className='icon'/> <input className='input' type="text" placeholder='Entrez votre prénom...' onChange={handleChangeName} value={name}/> </StyledInput>
                 <StyledButton>
-                    Mon espace <BsChevronRight />
+                    <p>Mon espace</p> <BsChevronRight />
                 </StyledButton>
             </StyledForm>
         </div>
@@ -50,10 +52,11 @@ const StyledButton = styled.button`
     color: white;
     height: ${theme.spacing.xxl};
     font-family: 'Open Sans', sans-serif;
-    font-weight: ${theme.fonts.weights.bold};
-    font-size: ${theme.fonts.size.P1};
+    font-weight: ${theme.fonts.weights.heavy};
+    font-size: ${theme.fonts.size.P4};
     border: none;
     border-radius: ${theme.borderRadius.round};
+    gap: 1.5rem;
 `;
 
 const StyledHr = styled.hr`
@@ -68,10 +71,27 @@ const StyledForm = styled.form`
     gap: ${theme.spacing.lg};
 `;
 
-const StyledInput = styled.input`
-    height: ${theme.spacing.xxl};
-    border-radius: ${theme.borderRadius.round};
+const StyledInput = styled.div`
+display: flex;
+background-color: white;
+align-items: center;
+padding-left: 10%;
+gap: 1rem;
+height: ${theme.spacing.xxl};
+border-radius: ${theme.borderRadius.round};
+
+.icon {
+    font-size: ${theme.fonts.size.P4};
+    color: grey;
+}
+
+.input {
+    width: 95%;
+    height: 90%;
+    font-size: ${theme.fonts.size.P3};
+    font-weight: ${theme.fonts.weights.light};
     border: none;
+    }   
 `;
 
 const StyledH2 = styled.h2`
