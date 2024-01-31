@@ -7,8 +7,7 @@ import Profile from '../Profile';
 import { refresh } from '../utils/refreshWindow';
 import { useState } from 'react';
 
-export default function NavBar({ username }) {
-    const [isAdmin, setIsAdmin] = useState(false)
+export default function NavBar({ username, isAdmin, setIsAdmin }) {
 
     const toggleBtn = () => {
         if (isAdmin) {
@@ -69,6 +68,7 @@ const NavBarStyled = styled.nav`
         padding: 3px;
         width:14rem;
         height:100%;
+        transition: all 500ms ease;
     }
 
     .btn-drag-off{
@@ -97,6 +97,7 @@ const NavBarStyled = styled.nav`
         padding: 3px;
         width:14rem;
         height:100%;
+        transition: all 500ms ease;
     }
 
     .btn-drag-on{
