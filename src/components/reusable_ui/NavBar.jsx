@@ -24,9 +24,9 @@ export default function NavBar({ username }) {
                 <Logo />
             </button>
             <div className='container-nav'>
-                <div className='container-btn-drag-off'>
+                <div className={isAdmin ? 'container-btn-drag-on': 'container-btn-drag-off'}>
                     <button className='btn-drag-off' onClick={() => toggleBtn()}></button>
-                    <p id='text-admin' className='text-drag-off'>ACTIVER LE MODE ADMIN</p>
+                    <p id='text-admin' className='text-drag-off'>{isAdmin ? 'DESACTIVER LE MODE ADMIN ': 'ACTIVER LE MODE ADMIN'}</p>
                 </div>
                 <Profile username={username} />
             </div>
