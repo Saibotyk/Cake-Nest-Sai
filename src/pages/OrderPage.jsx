@@ -5,6 +5,8 @@ import { theme } from '../components/Theme';
 import styled from 'styled-components'
 import NavBar from '../components/reusable_ui/NavBar';
 import Container from '../components/reusable_ui/Container';
+import Card from '../components/card';
+import { fakeSmallMenu } from '../components/fakeData/fakeMenu';
 
 export default function OrderPage() {
 
@@ -14,6 +16,10 @@ export default function OrderPage() {
     <BackgroundStyled>
       <Container>
         <NavBar username={username} />
+        {
+          fakeSmallMenu.map((product) => <Card key={product.id}  image={product.imageSource} name={product.title} price={product.price}/>  )
+        }
+
       </Container>
     </BackgroundStyled>
   )
