@@ -5,18 +5,28 @@ import { Link } from 'react-router-dom';
 import Logo from './Logo';
 import Profile from '../Profile';
 import { refresh } from '../utils/refreshWindow';
+import { useState } from 'react';
 
 export default function NavBar({ username }) {
+    const [isAdmin, setIsAdmin] = useState(false)
+
+    const toggleBtn = () => {
+        if (isAdmin) {
+            setIsAdmin(false)
+        } else {
+            setIsAdmin(true)
+        }
+    }
+
     return (
         <NavBarStyled>
             <button className='logo' onClick={() => refresh()}>
                 <Logo />
             </button>
-            <div>
-                <div>
-                    <div>
-
-                    </div>
+            <div className='container-nav'>
+                <div className='container-btn-drag-off'>
+                    <button className='btn-drag-off' onClick={() => toggleBtn()}></button>
+                    <p id='text-admin' className='text-drag-off'>ACTIVER LE MODE ADMIN</p>
                 </div>
                 <Profile username={username} />
             </div>
@@ -43,5 +53,65 @@ const NavBarStyled = styled.nav`
 
     .logo:hover {
         cursor: pointer;
+    }
+
+    .container-nav{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        align-items:center;
+    }
+
+    .container-btn-drag-off{
+        display: flex;
+        justify-content: space-between;
+        background-color: ${theme.colors.background_dark};
+        border-radius: 50px;
+        padding: 3px;
+        width:14rem;
+        height:100%;
+    }
+
+    .btn-drag-off{
+        background-color: ${theme.colors.primary};
+        aspect-ratio: 1 / 1;
+        border-radius:${theme.borderRadius.circle};
+        border: none;
+        cursor: pointer;
+    }
+
+    .text-drag-off{
+        font-size: ${theme.fonts.size.XS};        
+        color: ${theme.colors.primary};
+        font-weight: bold;
+        text-align: left;
+        margin:auto;
+    }
+
+    .container-btn-drag-on{
+        display: flex;
+        flex-direction: row-reverse;
+        justify-content: space-between;
+        background-color: ${theme.colors.background_white};
+        border:1px solid ${theme.colors.primary};
+        border-radius: 50px;
+        padding: 3px;
+        width:14rem;
+        height:100%;
+    }
+
+    .btn-drag-on{
+        background-color: ${theme.colors.primary};
+        aspect-ratio: 1 / 1;
+        border-radius:${theme.borderRadius.circle};
+        border: none;
+        cursor: pointer;
+    }
+
+    .text-drag-on{
+        font-size: ${theme.fonts.size.XS};        
+        color: ${theme.colors.dark};
+        font-weight: bold;
+        text-align: left;
+        margin: auto;
     }
 `;
