@@ -43,6 +43,6 @@ const ShopStyled = styled.div`
     grid-template-columns: repeat(4, 1fr);
     padding: 50px 50px 150px;
     gap: 5rem;
-    max-height: 70vh;
+    max-height: 62vh;
     overflow-y: scroll;
 `;

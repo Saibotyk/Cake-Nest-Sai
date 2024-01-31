@@ -10,9 +10,16 @@ export default function NavBar({ username }) {
     return (
         <NavBarStyled>
             <button className='logo' onClick={() => refresh()}>
-                <Logo/>
+                <Logo />
             </button>
-            <Profile username={username}/>
+            <div>
+                <div>
+                    <div>
+
+                    </div>
+                </div>
+                <Profile username={username} />
+            </div>
         </NavBarStyled>
     )
 }
