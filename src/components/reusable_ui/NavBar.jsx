@@ -27,6 +27,7 @@ const NavBarStyled = styled.nav`
     padding: ${theme.spacing.sm};
     box-shadow: 0px 34px 12px 0px rgba(0,0,0,0.2),0px 10px 15px -3px rgba(0,0,0,0.1);
     z-index: 1000;
+    height: 10vh;
 
     .logo{
         border: none;

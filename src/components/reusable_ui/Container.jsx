@@ -13,11 +13,12 @@ export default function Container({ children }) {
 
 const ContainerStyled = styled.div`
     background-color: ${theme.colors.greyLight};
-    height:96vh;
-    width: 98vw;
+    height:96%;
+    width: 98%;
     margin: ${theme.spacing.md} auto;
     z-index: -1000 ;
     border-radius: ${theme.borderRadius.extraRound};
     box-shadow: 0px 8px 20px 8px rgba(0, 0, 0, 0.2) inset;
+    
 `;
 
