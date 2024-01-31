@@ -6,6 +6,7 @@ import Logo from './Logo';
 import Profile from '../Profile';
 import { refresh } from '../utils/refreshWindow';
 import { useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 
 export default function NavBar({ username, isAdmin, setIsAdmin }) {
 
@@ -14,6 +15,7 @@ export default function NavBar({ username, isAdmin, setIsAdmin }) {
             setIsAdmin(false)
         } else {
             setIsAdmin(true)
+            toast.info("Mode ADMIN actif")
         }
     }
 

@@ -12,8 +12,7 @@ import 'react-toastify/dist/ReactToastify.css';
 export default function OrderPage({ isAdmin, setIsAdmin }) {
 
   const { username } = useParams();
-  isAdmin ? toast.info("Mode ADMIN actif") : toast.info("Mode ADMIN inactif");
-
+  
   return (
     <BackgroundStyled>
       <Container>

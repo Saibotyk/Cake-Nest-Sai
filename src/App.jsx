@@ -15,7 +15,7 @@ export default function App() {
     <Routes>
       <Route path="/" element={<ConnectPage />} />
       <Route path="/order/:username" element={<OrderPage isAdmin={isAdmin} setIsAdmin={setIsAdmin}/>} />
-      <Route path="/*" element={<ErrorPage />} />
+      <Route path="*" element={<ErrorPage />} />
     </Routes>
   )
 }
