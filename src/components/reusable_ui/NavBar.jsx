@@ -25,10 +25,10 @@ export default function NavBar({ username, isAdmin, setIsAdmin }) {
                 <Logo />
             </button>
             <div className='container-nav'>
-                <div className={isAdmin ? 'container-btn-drag-on': 'container-btn-drag-off'}>
-                    <button className='btn-drag-off' onClick={() => toggleBtn()}></button>
+                <button className={isAdmin ? 'container-btn-drag-on': 'container-btn-drag-off'} onClick={() => toggleBtn()}>
+                    <div className='btn-drag-off'></div>
                     <p id='text-admin' className='text-drag-off'>{isAdmin ? 'DESACTIVER LE MODE ADMIN ': 'ACTIVER LE MODE ADMIN'}</p>
-                </div>
+                </button>
                 <Profile username={username} />
             </div>
         </NavBarStyled>
@@ -71,13 +71,13 @@ const NavBarStyled = styled.nav`
         width:14rem;
         height:100%;
         transition: all 500ms ease;
+        border: none;
     }
 
     .btn-drag-off{
         background-color: ${theme.colors.primary};
         aspect-ratio: 1 / 1;
         border-radius:${theme.borderRadius.circle};
-        border: none;
         cursor: pointer;
     }
 
