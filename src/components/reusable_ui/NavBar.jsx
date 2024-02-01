@@ -6,15 +6,16 @@ import Logo from './Logo';
 import Profile from '../Profile';
 import { refresh } from '../utils/refreshWindow';
 import { useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 
-export default function NavBar({ username }) {
-    const [isAdmin, setIsAdmin] = useState(false)
+export default function NavBar({ username, isAdmin, setIsAdmin }) {
 
     const toggleBtn = () => {
         if (isAdmin) {
             setIsAdmin(false)
         } else {
             setIsAdmin(true)
+            toast.info("Mode ADMIN actif")
         }
     }
 
@@ -24,10 +25,10 @@ export default function NavBar({ username }) {
                 <Logo />
             </button>
             <div className='container-nav'>
-                <div className={isAdmin ? 'container-btn-drag-on': 'container-btn-drag-off'}>
-                    <button className='btn-drag-off' onClick={() => toggleBtn()}></button>
+                <button className={isAdmin ? 'container-btn-drag-on': 'container-btn-drag-off'} onClick={() => toggleBtn()}>
+                    <div className='btn-drag-off'></div>
                     <p id='text-admin' className='text-drag-off'>{isAdmin ? 'DESACTIVER LE MODE ADMIN ': 'ACTIVER LE MODE ADMIN'}</p>
-                </div>
+                </button>
                 <Profile username={username} />
             </div>
         </NavBarStyled>
@@ -69,13 +70,14 @@ const NavBarStyled = styled.nav`
         padding: 3px;
         width:14rem;
         height:100%;
+        transition: all 500ms ease;
+        border: none;
     }
 
     .btn-drag-off{
         background-color: ${theme.colors.primary};
         aspect-ratio: 1 / 1;
         border-radius:${theme.borderRadius.circle};
-        border: none;
         cursor: pointer;
     }
 
@@ -97,6 +99,7 @@ const NavBarStyled = styled.nav`
         padding: 3px;
         width:14rem;
         height:100%;
+        transition: all 500ms ease;
     }
 
     .btn-drag-on{
