@@ -5,10 +5,13 @@ import { Link } from 'react-router-dom';
 import Logo from './Logo';
 import Profile from '../Profile';
 import { refresh } from '../utils/refreshWindow';
-import { useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import { useContext, useState } from "react";
+import { toast } from 'react-toastify';
+import DocumentContext from '../../context/DocumentContext';
 
-export default function NavBar({ username, isAdmin, setIsAdmin }) {
+export default function NavBar({ username }) {
+
+    const {isAdmin, setIsAdmin }= useContext(DocumentContext);
 
     const toggleBtn = () => {
         if (isAdmin) {
