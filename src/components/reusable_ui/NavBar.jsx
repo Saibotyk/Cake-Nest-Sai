@@ -9,7 +9,6 @@ import { useContext, useState } from "react";
 import { toast } from 'react-toastify';
 import DocumentContext from '../../context/DocumentContext';
 
-
 export default function NavBar({ username }) {
 
     const {isAdmin, setIsAdmin }= useContext(DocumentContext);
