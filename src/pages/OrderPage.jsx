@@ -1,5 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
+import { useContext } from 'react';
 import { theme } from '../components/Theme';
 import styled from 'styled-components'
 import NavBar from '../components/reusable_ui/NavBar';
@@ -8,10 +9,14 @@ import Card from '../components/reusable_ui/Card';
 import { fakeMenu } from '../components/fakeData/fakeMenu';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import AdminPanel from '../components/adminPanel/AdminPanel';
+import DocumentContext from '../context/DocumentContext';
 
 export default function OrderPage() {
 
   const { username } = useParams();
+
+  const {isAdmin, setIsAdmin }= useContext(DocumentContext);
   
   return (
     
@@ -35,6 +40,7 @@ export default function OrderPage() {
           pauseOnHover
           theme="dark"
           transition:Bounce />
+          {isAdmin ? <AdminPanel/> : ""}
       </Container>
     </BackgroundStyled>
   )
@@ -58,6 +64,6 @@ const ShopStyled = styled.div`
     grid-template-columns: repeat(4, 1fr);
     padding: 50px 50px 150px;
     gap: 5rem;
-    max-height: 62vh;
+    max-height: 59.8vh;
     overflow-y: scroll;
 `;
