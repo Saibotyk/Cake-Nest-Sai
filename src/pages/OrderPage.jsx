@@ -6,17 +6,18 @@ import NavBar from '../components/reusable_ui/NavBar';
 import Container from '../components/reusable_ui/Container';
 import Card from '../components/reusable_ui/Card';
 import { fakeMenu } from '../components/fakeData/fakeMenu';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-export default function OrderPage({ isAdmin, setIsAdmin }) {
+export default function OrderPage() {
 
   const { username } = useParams();
   
   return (
+    
     <BackgroundStyled>
       <Container>
-        <NavBar username={username} isAdmin={isAdmin} setIsAdmin={setIsAdmin} />
+        <NavBar username={username}/>
         <ShopStyled>
           {
             fakeMenu.map((product) => <Card key={product.id} image={product.imageSource} name={product.title} price={product.price} />)

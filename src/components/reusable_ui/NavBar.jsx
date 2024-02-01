@@ -5,10 +5,13 @@ import { Link } from 'react-router-dom';
 import Logo from './Logo';
 import Profile from '../Profile';
 import { refresh } from '../utils/refreshWindow';
-import { useState } from 'react';
-import { ToastContainer, toast } from 'react-toastify';
+import { useContext, useState } from "react";
+import { toast } from 'react-toastify';
+import DocumentContext from '../../context/DocumentContext';
 
-export default function NavBar({ username, isAdmin, setIsAdmin }) {
+export default function NavBar({ username }) {
+
+    const {isAdmin, setIsAdmin }= useContext(DocumentContext);
 
     const toggleBtn = () => {
         if (isAdmin) {
@@ -72,13 +75,13 @@ const NavBarStyled = styled.nav`
         height:100%;
         transition: all 500ms ease;
         border: none;
+        cursor: pointer;
     }
 
     .btn-drag-off{
         background-color: ${theme.colors.primary};
         aspect-ratio: 1 / 1;
         border-radius:${theme.borderRadius.circle};
-        cursor: pointer;
     }
 
     .text-drag-off{
@@ -100,14 +103,14 @@ const NavBarStyled = styled.nav`
         width:14rem;
         height:100%;
         transition: all 500ms ease;
+        cursor: pointer;
+        border: none;
     }
 
     .btn-drag-on{
         background-color: ${theme.colors.primary};
         aspect-ratio: 1 / 1;
         border-radius:${theme.borderRadius.circle};
-        border: none;
-        cursor: pointer;
     }
 
     .text-drag-on{
