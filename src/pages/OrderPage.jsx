@@ -54,7 +54,8 @@ const BackgroundStyled = styled.div`
     bottom: 0;
     /* z-index: -1000; */
     background-color: ${theme.colors.primary};
-    /* height: 100vh; */
+    height: 100vh;
+    max-height: 100vh;
     width: 100vw;
 
 `;
@@ -66,4 +67,5 @@ const ShopStyled = styled.div`
     gap: 5rem;
     max-height: 59.8vh;
     overflow-y: scroll;
+    margin-bottom: 150px;
 `;
