@@ -1,27 +1,35 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
+import { useContext } from 'react';
 import { theme } from '../components/Theme';
 import styled from 'styled-components'
 import NavBar from '../components/reusable_ui/NavBar';
 import Container from '../components/reusable_ui/Container';
 import Card from '../components/reusable_ui/Card';
 import { fakeMenu } from '../components/fakeData/fakeMenu';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import AdminPanel from '../components/adminPanel/AdminPanel';
+import DocumentContext from '../context/AdminContext';
+import { useState } from 'react';
 
-export default function OrderPage({ isAdmin, setIsAdmin }) {
+export default function OrderPage() {
 
   const { username } = useParams();
+  const [ addOrModify, setAddOrModify ] = useState("add")
+  const {isAdmin, setIsAdmin }= useContext(DocumentContext);
   
   return (
+    
     <BackgroundStyled>
       <Container>
-        <NavBar username={username} isAdmin={isAdmin} setIsAdmin={setIsAdmin} />
+        <NavBar username={username}/>
         <ShopStyled>
           {
             fakeMenu.map((product) => <Card key={product.id} image={product.imageSource} name={product.title} price={product.price} />)
           }
         </ShopStyled>
+        {isAdmin ? <AdminPanel addOrModify={addOrModify} setAddOrModify={setAddOrModify}/> : ""}
         <ToastContainer
           position="bottom-right"
           autoClose={2000}
@@ -47,16 +55,16 @@ const BackgroundStyled = styled.div`
     bottom: 0;
     /* z-index: -1000; */
     background-color: ${theme.colors.primary};
-    /* height: 100vh; */
+    height: 100vh;
     width: 100vw;
 
 `;
 
 const ShopStyled = styled.div`
   display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    padding: 50px 50px 150px;
-    gap: 5rem;
-    max-height: 62vh;
-    overflow-y: scroll;
+  overflow-y: scroll;
+  grid-template-columns: repeat(4, 1fr);
+  padding: 50px 50px 150px;
+  gap: 5rem;
+  max-height: 50vh;
 `;

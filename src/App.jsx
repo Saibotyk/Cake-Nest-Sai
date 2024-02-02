@@ -4,19 +4,28 @@ import ConnectPage from './pages/ConnectPage'
 import OrderPage from './pages/OrderPage'
 import ErrorPage from './pages/ErrorPage'
 import { useState } from 'react'
+import AdminContext from './context/AdminContext';
+
 
 
 
 export default function App() {
   const [isAdmin, setIsAdmin] = useState(false)
 
+  const adminContextValue = {
+    isAdmin,
+    setIsAdmin
+  }
+
 
   return (
-    <Routes>
-      <Route path="/" element={<ConnectPage />} />
-      <Route path="/order/:username" element={<OrderPage isAdmin={isAdmin} setIsAdmin={setIsAdmin}/>} />
-      <Route path="*" element={<ErrorPage />} />
-    </Routes>
+    <AdminContext.Provider value={adminContextValue}>
+      <Routes>
+        <Route path="/" element={<ConnectPage />} />
+        <Route path="/order/:username" element={<OrderPage />} />
+        <Route path="*" element={<ErrorPage />} />
+      </Routes>
+    </AdminContext.Provider>
   )
 }
 
