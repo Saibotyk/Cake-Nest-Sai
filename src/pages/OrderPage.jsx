@@ -19,6 +19,8 @@ export default function OrderPage() {
   const [ addOrModify, setAddOrModify ] = useState("add")
   const {isAdmin, setIsAdmin }= useContext(DocumentContext);
   
+  const [ shopMenu, setShopMenu] = useState(fakeMenu);
+
   return (
     
     <BackgroundStyled>
@@ -26,10 +28,10 @@ export default function OrderPage() {
         <NavBar username={username}/>
         <ShopStyled>
           {
-            fakeMenu.map((product) => <Card key={product.id} image={product.imageSource} name={product.title} price={product.price} />)
+            shopMenu.map((product) => <Card key={product.id} image={product.imageSource} name={product.title} price={product.price} />)
           }
         </ShopStyled>
-        {isAdmin ? <AdminPanel addOrModify={addOrModify} setAddOrModify={setAddOrModify}/> : ""}
+        {isAdmin ? <AdminPanel addOrModify={addOrModify} setAddOrModify={setAddOrModify} shopMenu={shopMenu} setShopMenu={setShopMenu} /> : ""}
         <ToastContainer
           position="bottom-right"
           autoClose={2000}
@@ -66,5 +68,5 @@ const ShopStyled = styled.div`
   grid-template-columns: repeat(4, 1fr);
   padding: 50px 50px 150px;
   gap: 5rem;
-  max-height: 50vh;
+  max-height: 65vh;
 `;
