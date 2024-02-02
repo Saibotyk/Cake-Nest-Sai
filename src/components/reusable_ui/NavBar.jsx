@@ -17,6 +17,7 @@ export default function NavBar({ username }) {
         if (isAdmin) {
             setIsAdmin(false)
         } else {
+            
             setIsAdmin(true)
             toast.info("Mode ADMIN actif")
         }
