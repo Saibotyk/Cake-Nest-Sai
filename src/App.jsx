@@ -4,7 +4,7 @@ import ConnectPage from './pages/ConnectPage'
 import OrderPage from './pages/OrderPage'
 import ErrorPage from './pages/ErrorPage'
 import { useState } from 'react'
-import DocumentContext from "./context/DocumentContext";
+import AdminContext from './context/AdminContext';
 
 
 
@@ -12,20 +12,20 @@ import DocumentContext from "./context/DocumentContext";
 export default function App() {
   const [isAdmin, setIsAdmin] = useState(false)
 
-  const documentContextValue = {
+  const adminContextValue = {
     isAdmin,
     setIsAdmin
   }
 
 
   return (
-    <DocumentContext.Provider value={documentContextValue}>
+    <AdminContext.Provider value={adminContextValue}>
       <Routes>
         <Route path="/" element={<ConnectPage />} />
         <Route path="/order/:username" element={<OrderPage />} />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
-    </DocumentContext.Provider>
+    </AdminContext.Provider>
   )
 }
 

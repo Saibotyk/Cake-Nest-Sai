@@ -7,11 +7,11 @@ import Profile from '../Profile';
 import { refresh } from '../utils/refreshWindow';
 import { useContext, useState } from "react";
 import { toast } from 'react-toastify';
-import DocumentContext from '../../context/DocumentContext';
+import AdminContext from '../../context/AdminContext';
 
 export default function NavBar({ username }) {
 
-    const {isAdmin, setIsAdmin }= useContext(DocumentContext);
+    const {isAdmin, setIsAdmin }= useContext(AdminContext);
 
     const toggleBtn = () => {
         if (isAdmin) {
