@@ -1,100 +1,100 @@
-import React from 'react'
-import { useState, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 import { theme } from '../Theme';
 import AdminContext from '../../context/AdminContext';
 import { FaChevronUp, FaPencilAlt, FaPlus, FaChevronDown } from "react-icons/fa";
 import { GiCupcake } from "react-icons/gi";
-import { MdPhotoCamera, MdOutlineEuroSymbol  } from "react-icons/md";
-import cakeImg from "../fakeData/images/cupcake-item.png"
-
+import { MdPhotoCamera, MdOutlineEuroSymbol } from "react-icons/md";
+import apiAxios from '../../../libs/axios';
 
 export default function AdminPanel({ addOrModify, setAddOrModify, shopMenu, setShopMenu }) {
-    const [isOpen, setIsOpen] = useState(true)
+    const [isOpen, setIsOpen] = useState(true);
+    const { isAdmin } = useContext(AdminContext);
 
-    const { isAdmin, setIsAdmin } = useContext(AdminContext);
+    const [cupcake, setCupcake] = useState({
+        name: "",
+        price_in_cents: 0,
+        url_img: "",
+        description: "Un cupcake !",
+        qty: 50
+    });
 
-    const closePanel = () => {
-        if (isOpen) {
-            setIsOpen(false)
-        } else {
-            setIsOpen(true)
-        }
-    }
-
-    const [ inputTitle, setTitle ] = useState("")
-    const [ inputPrice, setPrice ] = useState("")
-    const [ inputImageSource, setImageSource ] = useState("")
+    const togglePanel = () => {
+        setIsOpen(!isOpen);
+    };
 
     const handleSubmit = (event) => {
-        event.preventDefault()
-        const shopCopy = [...shopMenu]
-        const id = new Date().getTime()
-        const imageSource = inputImageSource
-        const title = inputTitle
-        const price =inputPrice
-        shopCopy.push({ id, title, imageSource, price })
-        setShopMenu(shopCopy)
-        setTitle("")
-        setPrice("")
-        setImageSource("")
-    }
+        event.preventDefault();
+        // Ajouter une validation simple
+        if (!cupcake.name || !cupcake.url_img || isNaN(cupcake.price_in_cents) || cupcake.price_in_cents <= 0) {
+            console.log("Validation error: all fields are required and must be valid.");
+            return;
+        }
 
-    const handleChangeTitle = (event) => {
-        setTitle(event.target.value)
-    }
+        apiAxios.post('/api/addCupcake', cupcake)
+            .then((response) => {
+                console.log(response);
+                // Ajout de retour visuel, comme un message de succès ou un toast
+            })
+            .catch((error) => {
+                console.error("Error adding cupcake:", error);
+            });
+    };
 
-    const handleChangePrice = (event) => {
-        setPrice(event.target.value)
-    }
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setCupcake({
+            ...cupcake,
+            [name]: value,
+        });
+    };
 
-    const handleChangeImageSource = (event) => {
-        setImageSource(event.target.value)
-    }
-
+    const displayedImage = cupcake.url_img || "path_to_default_image.png";
 
     return (
         <ContainerAdminPanelStyled>
             <div className='container-btn'>
-                <button className={isOpen ? 'btn-admin-light' : 'btn-admin'} onClick={closePanel}>{isOpen ? <FaChevronDown /> : <FaChevronUp />}</button>
-                <button className={isOpen && addOrModify == "add" ? 'btn-admin' : 'btn-admin-light'} onClick={() => { setAddOrModify("add"); setIsOpen(true); } }><FaPlus /> Ajouter un produit</button>
-                <button className={isOpen && addOrModify == "modify" ? 'btn-admin' : 'btn-admin-light'} onClick={() => { setAddOrModify("modify"); setIsOpen(true) }}><FaPencilAlt /> Modifier un produit</button>
+                <button className={isOpen ? 'btn-admin-light' : 'btn-admin'} onClick={togglePanel}>
+                    {isOpen ? <FaChevronDown /> : <FaChevronUp />}
+                </button>
+                <button className={isOpen && addOrModify === "add" ? 'btn-admin' : 'btn-admin-light'} onClick={() => { setAddOrModify("add"); setIsOpen(true); }}>
+                    <FaPlus /> Ajouter un produit
+                </button>
+                <button className={isOpen && addOrModify === "modify" ? 'btn-admin' : 'btn-admin-light'} onClick={() => { setAddOrModify("modify"); setIsOpen(true); }}>
+                    <FaPencilAlt /> Modifier un produit
+                </button>
             </div>
             {
-                isOpen && isAdmin && addOrModify == "add"
-                    ?
-                    <div className='panel-add'>
-                        <form action="submit" className='form' onSubmit={handleSubmit}>
-                            <img src={inputImageSource} className='input-img' />
-                            <div className='input-list'>
-                                <div className='input'>
-                                    <GiCupcake />
-                                    <input type="text" onChange={handleChangeTitle}  value={inputTitle}/>
-                                </div>
-                                <div className='input'>
-                                    <MdPhotoCamera />
-                                    <input type="text" onChange={handleChangeImageSource}  value={inputImageSource}/>
-                                </div>
-                                <div className='input'>
-                                    <MdOutlineEuroSymbol />
-                                    <input type="text" onChange={handleChangePrice}  value={inputPrice}/>
-                                </div>
-                                <button className='btn-form'>Ajouter un nouveau produit</button>
+                isOpen && isAdmin && addOrModify === "add" &&
+                <div className='panel-add'>
+                    <form className='form' onSubmit={handleSubmit}>
+                        <img src={displayedImage} className='input-img' alt="Cupcake" />
+                        <div className='input-list'>
+                            <div className='input'>
+                                <GiCupcake />
+                                <input type="text" name='name' placeholder="Nom du cupcake" onChange={handleChange} value={cupcake.name} />
                             </div>
-                        </form>
-                    </div>
-                    : ""
+                            <div className='input'>
+                                <MdPhotoCamera />
+                                <input type="text" name='url_img' placeholder="URL de l'image" onChange={handleChange} value={cupcake.url_img} />
+                            </div>
+                            <div className='input'>
+                                <MdOutlineEuroSymbol />
+                                <input type="text" name='price_in_cents' placeholder="Prix en cents" onChange={handleChange} value={cupcake.price_in_cents} />
+                            </div>
+                            <button className='btn-form'>Ajouter un nouveau produit</button>
+                        </div>
+                    </form>
+                </div>
             }
             {
-                isOpen && isAdmin && addOrModify == "modify"
-                    ?
-                    <div className='panel-modify'>
-                        <p>Modifier un produit</p>
-                    </div>
-                    : ""
+                isOpen && isAdmin && addOrModify === "modify" &&
+                <div className='panel-modify'>
+                    <p>Modifier un produit</p>
+                </div>
             }
         </ContainerAdminPanelStyled>
-    )
+    );
 }
 
 const ContainerAdminPanelStyled = styled.div`
@@ -117,16 +117,12 @@ const ContainerAdminPanelStyled = styled.div`
         padding: 10px 20px;
         border-top-right-radius: 10px;
         border-top-left-radius: 10px;
-        border-bottom-left-radius: 0;
-        border-bottom-right-radius: 0;
         cursor: pointer;
     }
     
     .btn-admin-light{
         border-top-right-radius: 10px;
         border-top-left-radius: 10px;
-        border-bottom-left-radius: 0;
-        border-bottom-right-radius: 0;
         color: grey;
         border: none;
         padding: 10px 20px;
@@ -134,15 +130,10 @@ const ContainerAdminPanelStyled = styled.div`
         cursor: pointer;
     }
 
-    .panel-add{
+    .panel-add, .panel-modify{
         background-color:${theme.colors.background_white};
         height:25vh;
         box-shadow: 0px -8px 4px -3px rgba(0,0,0,0.1);
-    }
-
-    .panel-modify{
-        background-color:${theme.colors.background_white};
-        height:25vh;
     }
 
     .form{
@@ -156,7 +147,7 @@ const ContainerAdminPanelStyled = styled.div`
         border-radius: 25%;
         aspect-ratio: 1 / 1;
         object-fit: cover;
-        border: 1px solid ${theme.colors.greyLight};;
+        border: 1px solid ${theme.colors.greyLight};
     }
 
     .input-list{
@@ -190,5 +181,4 @@ const ContainerAdminPanelStyled = styled.div`
         color: white;
         cursor: pointer;
     }
-
-    `;
+`;

@@ -2,19 +2,23 @@ import { BsPersonCircle } from "react-icons/bs"
 import { Link } from "react-router-dom"
 import styled from "styled-components"
 import { theme } from "../components/Theme/index"
+import apiAxios from "../../libs/axios"
+import { Navigate } from "react-router-dom/dist"
+import { useNavigate } from "react-router-dom/dist"
 
 export default function Profile({ username }) {
+  const navigate = useNavigate();
   return (
     <ProfileStyled>
       <div className="info">
         <p>
           Salut <b>{username}</b>
         </p>
-        <Link to="/">
+        <button onClick={() => {apiAxios.post("/logout", []);localStorage.removeItem("user"); navigate("/");}}>
           <div className="description">
             <small>Se déconnecter</small>
           </div>
-        </Link>
+        </button>
       </div>
       <div className="picture">
         <BsPersonCircle />
@@ -68,3 +72,4 @@ const ProfileStyled = styled.div`
     color: ${theme.colors.greyBlue};
   }
 `
+

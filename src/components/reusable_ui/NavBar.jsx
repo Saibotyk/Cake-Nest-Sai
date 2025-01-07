@@ -8,10 +8,15 @@ import { refresh } from '../utils/refreshWindow';
 import { useContext, useState } from "react";
 import { toast } from 'react-toastify';
 import AdminContext from '../../context/AdminContext';
+import { FaCartShopping } from "react-icons/fa6";
+import Kart from './Kart';
+
 
 export default function NavBar({ username }) {
 
     const {isAdmin, setIsAdmin }= useContext(AdminContext);
+
+    const [isOpen, setIsOpen] = useState(false)
 
     const toggleBtn = () => {
         if (isAdmin) {
@@ -28,12 +33,14 @@ export default function NavBar({ username }) {
             <button className='logo' onClick={() => refresh()}>
                 <Logo />
             </button>
+                <button className='btn' onClick={() => {isOpen ? setIsOpen(false) : setIsOpen(true)}}><FaCartShopping/></button>
             <div className='container-nav'>
                 <button className={isAdmin ? 'container-btn-drag-on': 'container-btn-drag-off'} onClick={() => toggleBtn()}>
                     <div className='btn-drag-off'></div>
                     <p id='text-admin' className='text-drag-off'>{isAdmin ? 'DESACTIVER LE MODE ADMIN ': 'ACTIVER LE MODE ADMIN'}</p>
                 </button>
                 <Profile username={username} />
+                {isOpen && <Kart />}
             </div>
         </NavBarStyled>
     )
@@ -115,10 +122,26 @@ const NavBarStyled = styled.nav`
     }
 
     .text-drag-on{
-        font-size: ${theme.fonts.size.XS};        
+        font-size: ${theme.fonts.size.XS};
         color: ${theme.colors.dark};
         font-weight: bold;
         text-align: left;
         margin: auto;
+    }
+
+    .btn{
+        display: flex;
+        background-color: white;
+        color: rgb(103, 182, 185);
+        padding: .5rem;
+        font-size: 2rem;
+        border-radius: 15px;
+        border: solid 1px rgb(103, 182, 185);
+    }
+
+    .btn:hover{
+        cursor: pointer;
+        transform: scale(1.2);
+        transition: all 250ms ease-in-out;
     }
 `;
